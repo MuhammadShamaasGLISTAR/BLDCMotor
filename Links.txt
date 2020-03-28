@@ -1,0 +1,9 @@
+https://www.instructables.com/id/Make-Your-Own-ESC/
+L293D
+PMOSFET
+BD140
+BD139 transistor and
+regulator IC 7805
+BJTs
+Relays
+ULN2003
