@@ -1,50 +1,158 @@
-double frequency = 2500.0; //Set frequency in Hertz
+int PhaseaUpperPin=2;
+int PhaseaLowerPin=3;
+int PhasebUpperPin=4;
+int PhasebLowerPin=5;
+int PhasecUpperPin=6;
+int PhasecLowerPin=7;
 
-double delayTime = (1000000.0 / (frequency * 2.0));//Half Period in microseconds
+int HallaPin=8;
+int HallbPin=9;
+int HallcPin=10;
 
+int HALLA=LOW;
+int HALLB=LOW;
+int HALLC=LOW;
+
+int Ts=1e-3;
+int vref=25;
+int Vdc=50;
+int Poles=4;
+
+
+int IA,IB,IC
+int IaPin,IbPin,IcPin
+int Id,Iq,I0
+int Idref,Iqref,I0ref
+int Vd,Vq,V0
+int IdErrorNew,IqErrorNew,I0ErrorNew
+int IdErrorOld,IqErrorOld,I0ErrorOld
+  
+function writeState (s){
+if ((s&100)>>2){digitalWrite(PhaseaUpperPin, HIGH);digitalWrite(PhaseaLowerPin, LOW);}
+else{digitalWrite(PhaseaUpperPin, LOW);digitalWrite(PhaseaLowerPin, HIGH);}
+if ((s&010)>>1){digitalWrite(PhasebUpperPin, HIGH);digitalWrite(PhasebLowerPin, LOW);}
+else{digitalWrite(PhasebUpperPin, LOW);digitalWrite(PhasebLowerPin, HIGH);}
+if (s&001){digitalWrite(PhasecUpperPin, HIGH);digitalWrite(PhasecLowerPin, LOW);}
+else{digitalWrite(PhasecUpperPin, LOW);digitalWrite(PhasecLowerPin, HIGH);}
+}
+
+function getangle(HALLA,HALLB,HALLC){
+  //This function calculates rotor angle using Hall Sensor Signals
+}
 
 void setup()
 {
-pinMode(2, OUTPUT);  
-pinMode(3, OUTPUT);
-pinMode(4, OUTPUT);  
-pinMode(5, OUTPUT);
-pinMode(6, OUTPUT);  
-pinMode(7, OUTPUT);
-pinMode(8, OUTPUT);  
-pinMode(9, OUTPUT);
-pinMode(10, OUTPUT);  
-pinMode(11, OUTPUT);
-pinMode(12, OUTPUT);  
-pinMode(13, OUTPUT);
+pinMode(PhaseaUpperPin, OUTPUT);
+pinMode(PhaseaLowerPin, OUTPUT);
+pinMode(PhasebUpperPin, OUTPUT);
+pinMode(PhasebLowerPin, OUTPUT);
+pinMode(PhasecUpperPin, OUTPUT);
+pinMode(PhasecLowerPin, OUTPUT);  
 
-digitalWrite(2, HIGH);
-digitalWrite(3, HIGH);
-digitalWrite(4, HIGH);
-digitalWrite(5, HIGH);
-digitalWrite(6, HIGH);
-digitalWrite(7, HIGH);
+pinMode(HallaPin, INPUT);
+pinMode(HallbPin, INPUT);
+pinMode(HallcPin, INPUT);
 
+digitalWrite(PhaseaUpperPin, LOW);
+digitalWrite(PhaseaLowerPin, LOW);
+digitalWrite(PhasebUpperPin, LOW);
+digitalWrite(PhasebLowerPin, LOW);
+digitalWrite(PhasecUpperPin, LOW);
+digitalWrite(PhasecLowerPin, LOW);
 }
 
 void loop()
 {
-digitalWrite(8, LOW);
-digitalWrite(9, HIGH);
-delayMicroseconds(delayTime/3);
-digitalWrite(12, HIGH);
-digitalWrite(13, LOW);
-delayMicroseconds(delayTime/3);
-digitalWrite(10, LOW);
-digitalWrite(11, HIGH);
-delayMicroseconds(delayTime/3);
-digitalWrite(8, HIGH);
-digitalWrite(9, LOW);
-delayMicroseconds(delayTime/3);
-digitalWrite(12, LOW);
-digitalWrite(13, HIGH);
-delayMicroseconds(delayTime/3);
-digitalWrite(10, HIGH);
-digitalWrite(11, LOW);
-delayMicroseconds(delayTime/3);
+
+  HALLA=digitalRead(HallaPin);
+  HALLB=digitalRead(HallbPin);
+  HALLC=digitalRead(HallcPin);
+
+thetae=getangle(HALLA,HALLB,HALLC)*(Poles/2);
+
+  IA=digitalRead(IaPin);
+  IB=digitalRead(IbPin);
+  IC=digitalRead(IcPin);
+  [Id,Iq,I0]=abctodq0(IA,IB,IC,thetae);  
+
+  IqErrorOld=IqErrorNew;
+  IdErrorOld=IqErrorNew;
+  IqErrorNew=Iq-Iqref;
+  IdErrorNew=Td-Idref;
+  Vd=PI(IdErrorNew,IdErrorOld);
+  Vq=PI(IqErrorNew,IqErrorOld);
+  vref=sqrt(Vd*Vd+Vq*Vq);
+  
+sector=thetae/(pi/3);
+thetae=thetae-(sector-1)*(pi/3);
+
+T1=sqrt(3)*Ts*vref*(1/Vdc)*sin((pi/3)-thetae);
+T2=sqrt(3)*Ts*vref*(1/Vdc)*sin(thetae);
+T0=Ts-T1-T2;
+
+if (sector==1)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(100);delayMicroseconds(T1);
+writeState(110);delayMicroseconds(T2);
+writeState(111);delayMicroseconds(T0);
+writeState(110);delayMicroseconds(T2);
+writeState(100);delayMicroseconds(T1);
+writeState(000);delayMicroseconds(T0/2);
+}
+
+if (sector==2)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(010);delayMicroseconds(T2);
+writeState(110);delayMicroseconds(T1);
+writeState(111);delayMicroseconds(T0);
+writeState(110);delayMicroseconds(T1);
+writeState(010);delayMicroseconds(T2);
+writeState(000);delayMicroseconds(T0/2);
+}
+
+if (sector==3)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(010);delayMicroseconds(T1);
+writeState(011);delayMicroseconds(T2);
+writeState(111);delayMicroseconds(T0);
+writeState(011);delayMicroseconds(T2);
+writeState(010);delayMicroseconds(T1);
+writeState(000);delayMicroseconds(T0/2);
+}
+
+if (sector==4)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(001);delayMicroseconds(T2);
+writeState(011);delayMicroseconds(T1);
+writeState(111);delayMicroseconds(T0);
+writeState(011);delayMicroseconds(T1);
+writeState(001);delayMicroseconds(T2);
+writeState(000);delayMicroseconds(T0/2);
+}
+
+if (sector==5)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(001);delayMicroseconds(T1);
+writeState(101);delayMicroseconds(T2);
+writeState(111);delayMicroseconds(T0);
+writeState(101);delayMicroseconds(T2);
+writeState(001);delayMicroseconds(T1);
+writeState(000);delayMicroseconds(T0/2);
+}
+
+if (sector==6)
+{
+writeState(000);delayMicroseconds(T0/2);
+writeState(001);delayMicroseconds(T2);
+writeState(011);delayMicroseconds(T1);
+writeState(111);delayMicroseconds(T0);
+writeState(011);delayMicroseconds(T1);
+writeState(001);delayMicroseconds(T2);
+writeState(000);delayMicroseconds(T0/2);
+}
 }
