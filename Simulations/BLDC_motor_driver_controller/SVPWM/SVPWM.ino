@@ -15,14 +15,12 @@ int HALLA=LOW;
 int HALLB=LOW;
 int HALLC=LOW;
 
-int oldstate;
-int newstate;
+int oldstate, newstate;
 
 double Ts=1e-3;
 double vref=25;
 double Vdc=50;
-double thetam;
-double thetae;
+double thetam, oldthetam, thetae;
 double oldspeed,newspeed;
 int Poles=4;
 
@@ -40,6 +38,7 @@ double T1,T2,T0;
 int sector;
 double kp,ki;
 double oldtime,newtime,dt;
+double theta0=PI/6;
 
 void writeState (int s)
 {
@@ -97,13 +96,14 @@ void loop()
   HALLB=digitalRead(HallbPin);
   HALLC=digitalRead(HallcPin);
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
-  int theta0=PI/6;
+  
   if(newstate!=oldstate)
   {
     oldtime=newtime;
     newtime=millis();
     dt=newtime-oldtime;
-    thetam=thetam+theta0;
+    thetam=oldthetam+theta0;
+    oldthetam=thetam;
     if(thetam>(2*PI))
     {
       thetam=thetam-(2*PI);
@@ -138,7 +138,7 @@ void loop()
   Vq=kp*IqErrorNew+ki*(0.5)*(IqErrorNew+IqErrorOld)*Ts;;
   vref=sqrt(Vd*Vd+Vq*Vq);
   
-  sector=thetae/(PI/3);
+  sector=(thetae/(PI/3))+1;
   thetae=thetae-(sector-1)*(PI/3);
 
   T1=sqrt(3)*Ts*vref*(1/Vdc)*sin((PI/3)-thetae);
