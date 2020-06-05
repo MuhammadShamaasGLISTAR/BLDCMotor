@@ -2,12 +2,12 @@ Downloading all the files
 1.Download and install git software (https://git-scm.com/download).
 2.Make a new folder BLDCMotor.
 2.Open command prompt in the folder BLDCMotor.
-3.run the command: git clone https://github.com/MuhammadShamaasGLISTAR/BLDCMotor
-4.After the download is complete, the folder must contain all the files and folders.
+3.Run this command in command prompt: git clone https://github.com/MuhammadShamaasGLISTAR/BLDCMotor
+4.After the download is complete, the folder must contain all the files and folders and a hidden .git folder.
 
 Updating all the files and folders
 1.Open command prompt in the folder BLDCMotor.
-2.run the command: git pull
+2.run this command in the command prompt: git pull
 
 Files and Folders
 3KW Motor
@@ -67,4 +67,5 @@ Simulations
 		|-PMSM_speed.mdl
 		|-power_brushlessDCmotor.slx
 		|-power_pmmotor.slx
-
+Commands.txt
+Instrucions.txt
