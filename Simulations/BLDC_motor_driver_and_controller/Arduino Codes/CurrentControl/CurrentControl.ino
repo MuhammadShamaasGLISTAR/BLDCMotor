@@ -23,31 +23,14 @@ double Vtriangle, Ttriangle, slope=1, Ts, Vmax=100;
 
 void writeState (int s)
 {
-  if ((s&B100)>>2)
-  {
-    digitalWrite(PhaseaUpperPin, HIGH);digitalWrite(PhaseaLowerPin, LOW);
-  }
-  else
-  {
-    digitalWrite(PhaseaUpperPin, LOW);digitalWrite(PhaseaLowerPin, HIGH);
-  }
-  if ((s&B010)>>1)
-  {
-    digitalWrite(PhasebUpperPin, HIGH);digitalWrite(PhasebLowerPin, LOW);
-  }
-  else
-  {
-    digitalWrite(PhasebUpperPin, LOW);digitalWrite(PhasebLowerPin, HIGH);
-  }
-  if (s&B001)
-  {
-    digitalWrite(PhasecUpperPin, HIGH);digitalWrite(PhasecLowerPin, LOW);
-  }
-  else
-  {
-    digitalWrite(PhasecUpperPin, LOW);digitalWrite(PhasecLowerPin, HIGH);
-  }
+  if ((s&B100)>>2) {digitalWrite(PhaseaUpperPin, HIGH);digitalWrite(PhaseaLowerPin, LOW); }
+  else                       {digitalWrite(PhaseaUpperPin, LOW); digitalWrite(PhaseaLowerPin, HIGH); }
+  if ((s&B010)>>1) {digitalWrite(PhasebUpperPin, HIGH);digitalWrite(PhasebLowerPin, LOW); }
+  else                       {digitalWrite(PhasebUpperPin, LOW); digitalWrite(PhasebLowerPin, HIGH); }
+  if (s&B001)          {digitalWrite(PhasecUpperPin, HIGH);digitalWrite(PhasecLowerPin, LOW); }
+  else                       {digitalWrite(PhasecUpperPin, LOW); digitalWrite(PhasecLowerPin, HIGH); }
 }
+
 
 void setup()
 {
@@ -80,34 +63,18 @@ void loop()
   HALLC=digitalRead(HallcPin);
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
 
-  if((Vtriangle>Vmax)||(Vtriangle<(-Vmax)))
-  {
-    slope=slope*(-1);  
-  }
+  if((Vtriangle>Vmax)||(Vtriangle<(-Vmax))){slope=slope*(-1);}
   Vtriangle=Vtriangle+slope*Ts;
   
   Current=analogRead(CurrentPin);
-
   CurrentErrorOld=CurrentErrorNew;
   CurrentErrorNew=Current-Currentref;
   Vref=kp*CurrentErrorNew+ki*(0.5)*(CurrentErrorNew+CurrentErrorOld)*Ts;
-  if(Vref>Vtriangle)
-  {
-    OpAmpOutput=1;
-  }
-  else
-  {
-    OpAmpOutput=0;
-  }
+  if(Vref>Vtriangle){OpAmpOutput=1;}
+  else{OpAmpOutput=0;}
 
-  if (OpAmpOutput>0)
-  {
-    writeState(newstate);
-  }
-  else
-  {
-    writeState(B000);
-  }
+  if (OpAmpOutput>0){writeState(newstate);}
+  else{writeState(B000);}
   delayMicroseconds(Ts);
   
 }

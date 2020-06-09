@@ -9,6 +9,7 @@ int HallbPin=9;
 int HallcPin=10;
 int SpeedPin=11;
 int VoltageOutputPin=12;
+int SpeedrefPin=13;
 
 int HALLA=LOW;
 int HALLB=LOW;
@@ -18,8 +19,10 @@ int oldstate, newstate;
 
 double kp,ki, SpeedErrorNew, SpeedErrorOld;
 double oldtime,newtime,dt;
-double Speed, Speedref;
+double thetam, oldthetam, thetae, theta0=PI/6;
+double newspeed, oldspeed, Speedref;
 double Vref, Vdc, DutyCycle, Ts; 
+double Poles=4;
 
 void writeState (int s)
 {
@@ -63,7 +66,7 @@ void setup()
   pinMode(HallaPin, INPUT);
   pinMode(HallbPin, INPUT);
   pinMode(HallcPin, INPUT);
-  pinMode(SpeedPin, INPUT);
+  pinMode(SpeedrefPin, INPUT);
 
   digitalWrite(PhaseaUpperPin, LOW);
   digitalWrite(PhaseaLowerPin, LOW);
@@ -75,16 +78,37 @@ void setup()
 
 void loop()
 {
-
+  oldstate=newstate;
   HALLA=digitalRead(HallaPin);
   HALLB=digitalRead(HallbPin);
   HALLC=digitalRead(HallcPin);
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
   
-  Speed=analogRead(SpeedPin);
+  if(newstate!=oldstate)
+  {
+    oldtime=newtime;
+    newtime=millis();
+    dt=newtime-oldtime;
+    thetam=oldthetam+theta0;
+    oldthetam=thetam;
+    if(thetam>(2*PI))
+    {
+      thetam=thetam-(2*PI);
+    }
+    oldspeed=newspeed;
+    newspeed=theta0/dt;
+  }
+  else
+  {
+    dt=millis()-newtime;
+    thetam=thetam+newspeed*dt;
+  }
+  
+  thetae=thetam*(Poles/2);
 
+  Speedref=analogRead(SpeedrefPin);
   SpeedErrorOld=SpeedErrorNew;
-  SpeedErrorNew=Speed-Speedref;
+  SpeedErrorNew=newspeed-Speedref;
   Vref=kp*SpeedErrorNew+ki*(0.5)*(SpeedErrorNew+SpeedErrorOld)*Ts;
   DutyCycle=Vref/Vdc;
 
