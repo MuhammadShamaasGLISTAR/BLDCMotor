@@ -42,12 +42,13 @@ Reports
 Simulations
 	|-BLDC_motor_driver_and_controller
 		|-BLDC_openloop.slx
-		|-BLDC_DTC.slx
-		|-BLDC_FOC.slx
-		|-BLDC_SVPWM.slx
-		|-BLDC_Speed_and_Current_Control.slx
-		|-BLDC_Speed_and_Torque_Control.slx
+		|-BLDC_DirectTorqueControl.slx
+		|-BLDC_FieldOrientedControl.slx
+		|-BLDC_PWM_Speed_and_Current_Control.slx
+		|-BLDC_Hysteresis_Speed_and_Torque_Control.slx
+		|-BLDC_SVPWM.slx		
 		|-BLDC_SVPWM_Speed_and_Torque_Control.slx
+		|-BLDC_system_diagram
 		|-Arduino Codes
 	|-Hall_Sensor
 		|-hall_output_display.slx
