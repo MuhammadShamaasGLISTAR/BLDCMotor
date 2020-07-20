@@ -41,6 +41,9 @@ Reports
 	|-BLDC_Motor.xlsx
 Simulations
 	|-BLDC_motor_driver_and_controller
+		|-SystemComposer
+			|-BLDC_Motor_System_Diagram.slx
+		|-BLDC_Motor_system_diagram.slx
 		|-BLDC_openloop.slx
 		|-BLDC_DirectTorqueControl.slx
 		|-BLDC_FieldOrientedControl.slx
@@ -48,7 +51,6 @@ Simulations
 		|-BLDC_Hysteresis_Speed_and_Torque_Control.slx
 		|-BLDC_SVPWM.slx		
 		|-BLDC_SVPWM_Speed_and_Torque_Control.slx
-		|-BLDC_system_diagram
 		|-Arduino Codes
 	|-Hall_Sensor
 		|-hall_output_display.slx
@@ -59,6 +61,7 @@ Simulations
 		|-Inverter_MPLAB
 		|-Inverter_Proteus
 		|-Inverter_PSIM
+		|-Inverter_LTSpice
 	|-Rectifier
 	|-Samples
 		|-AdaptivePIDControllerforBLDC.slx
