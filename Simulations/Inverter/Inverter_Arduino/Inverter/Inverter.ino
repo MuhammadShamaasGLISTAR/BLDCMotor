@@ -1,7 +1,7 @@
 //Brushless DC Motor Current Control Drive
 //Arduino Mega2560 
 
-/*
+
 int PhaseaUpper=2;
 int PhaseaLower=3;
 int PhasebUpper=4;
@@ -67,17 +67,15 @@ digitalWrite(PhasebLower, !HALLB);
 digitalWrite(PhasecUpper, HALLC);
 digitalWrite(PhasecLower, !HALLC);
 
-
-
 }
 
 void blinka() {HALLA = !HALLA;}
 void blinkb() {HALLB = !HALLB;}
 void blinkc() {HALLC = !HALLC;}
-*/
 
 
 
+/*
 int PhaseaUpperPin=2;
 int PhaseaLowerPin=3;
 int PhasebUpperPin=4;
@@ -148,3 +146,5 @@ if (newstate==5){writestate(1,-1,0);}
 if (newstate==6){writestate(0,1,-1);}
 if (newstate==7){writestate(0,0,0);}
 }
+
+*/
