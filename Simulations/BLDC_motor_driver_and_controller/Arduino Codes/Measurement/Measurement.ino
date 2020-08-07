@@ -46,9 +46,11 @@ void setup()
   pinMode(HallaPin, INPUT);
   pinMode(HallbPin, INPUT);
   pinMode(HallcPin, INPUT);
+  
   HALLA=digitalRead(HallaPin);
   HALLB=digitalRead(HallbPin);
   HALLC=digitalRead(HallcPin);
+
   attachInterrupt(digitalPinToInterrupt(HallaPin), blinka, CHANGE);
   attachInterrupt(digitalPinToInterrupt(HallbPin), blinkb, CHANGE);
   attachInterrupt(digitalPinToInterrupt(HallcPin), blinkc, CHANGE);
