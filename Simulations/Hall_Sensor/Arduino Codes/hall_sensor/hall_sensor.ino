@@ -1,6 +1,8 @@
-double frequency = 2500.0; //Set frequency in Hertz
-
+double frequency = 50000.0; //Set frequency in Hertz
+ 
 double delayTime = 1000000.0 / (frequency);
+
+unsigned int dutyCycle=5;
 
 void setup()
 {
@@ -11,19 +13,13 @@ pinMode(5, OUTPUT);
 pinMode(6, OUTPUT);  
 pinMode(7, OUTPUT);
 
+pinMode(8, INPUT);
 }
 
 void loop()
 {
- digitalWrite(2, HIGH);
- digitalWrite(3, LOW);
- digitalWrite(4, HIGH);
- digitalWrite(5, LOW);
- digitalWrite(6, HIGH);
- digitalWrite(7, LOW);
-
- delayMicroseconds(delayTime/4.0);
-
+  if (digitalRead(8)==HIGH)
+{
  digitalWrite(2, LOW);
  digitalWrite(3, LOW);
  digitalWrite(4, LOW);
@@ -31,8 +27,7 @@ void loop()
  digitalWrite(6, LOW);
  digitalWrite(7, LOW);
 
- delayMicroseconds(delayTime/4.0);
-
+ delayMicroseconds(0.5*(100-dutyCycle));
  
  digitalWrite(2, LOW);
  digitalWrite(3, HIGH);
@@ -41,7 +36,7 @@ void loop()
  digitalWrite(6, LOW);
  digitalWrite(7, HIGH);
 
- delayMicroseconds(delayTime/4.0);
+ delayMicroseconds(dutyCycle);
 
  digitalWrite(2, LOW);
  digitalWrite(3, LOW);
@@ -50,6 +45,19 @@ void loop()
  digitalWrite(6, LOW);
  digitalWrite(7, LOW);
 
- delayMicroseconds(delayTime/4.0);
+ delayMicroseconds(0.5*(100-dutyCycle));
 
+}
+
+else
+{
+ digitalWrite(2, HIGH);
+ digitalWrite(3, LOW);
+ digitalWrite(4, HIGH);
+ digitalWrite(5, LOW);
+ digitalWrite(6, HIGH);
+ digitalWrite(7, LOW);
+
+ delayMicroseconds(100);
+}
 }
