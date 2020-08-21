@@ -143,7 +143,7 @@ void loop()
     }
   
   
-  if (oldstate!=oldstate)
+  if (newstate!=oldstate)
   {
   digitalWrite(PhaseaLowerPin, LOW);
   digitalWrite(PhaseaUpperPin, LOW);
