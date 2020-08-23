@@ -40,7 +40,7 @@ Reports
 	|-BLDC_Motor.pdf
 	|-BLDC_Motor.xlsx
 Simulations
-	|-BLDC_motor_driver_and_controller
+	|-MATLAB_BLDC_motor_driver_and_controller
 		|-SystemComposer
 			|-BLDC_Motor_System_Diagram.slx
 		|-BLDC_Motor_system_diagram.slx
@@ -52,6 +52,10 @@ Simulations
 		|-BLDC_SVPWM.slx		
 		|-BLDC_SVPWM_Speed_and_Torque_Control.slx
 		|-Arduino Codes
+	|-Proteus_BLDC_motor_driver_and_controller
+		|-OpenLoop1
+		|-OpenLoop2
+		|-TestedCode
 	|-Hall_Sensor
 		|-hall_output_display.slx
 		|-hallsensor.slx
