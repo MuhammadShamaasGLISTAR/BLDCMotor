@@ -1,31 +1,25 @@
-int PhaseaLowerPin=2;
-int PhaseaUpperPin=3;
-int PhasebLowerPin=4;
-int PhasebUpperPin=5;
-int PhasecLowerPin=6;
-int PhasecUpperPin=7;
-int HallaPin=22;
-int HallbPin=24;
-int HallcPin=26;
-/*int IaPin=A0;
+int PhaseaUpperPin=2;
+int PhaseaLowerPin=3;
+int PhasebUpperPin=4;
+int PhasebLowerPin=5;
+int PhasecUpperPin=6;
+int PhasecLowerPin=7;
+int HallaPin=18;
+int HallbPin=19;
+int HallcPin=20;
+int IaPin=A0;
 int IbPin=A1;
 int IcPin=A2;
 int VaPin=A3;
 int VbPin=A4;
 int VcPin=A5;
-*/
+
 int HALLA=LOW;
 int HALLB=LOW;
 int HALLC=LOW;
-int PhaseaLower=LOW;
-int PhaseaUpper=LOW;
-int PhasebLower=LOW;
-int PhasebUpper=LOW;
-int PhasecLower=LOW;
-int PhasecUpper=LOW;
 
 int oldstate, newstate;
-/*double oldthetam,newthetam,oldthetae,newthetae,dthetae;
+double oldthetam,newthetam,oldthetae,newthetae,dthetae;
 double oldspeedm,newspeedm,accelerationm,oldspeede,newspeede,acceleratione,Direction;
 int Poles=4;
 
@@ -38,18 +32,16 @@ double Valpha,Vbeta;
 double oldtime,newtime,dt;
 double theta0e=PI/3.0;
 double theta0m=theta0e/(Poles/2);
-*/
-unsigned int dutyCycle=500;
 
 void setup()
 {
   Serial.begin(9600);
-  pinMode(PhaseaLowerPin, OUTPUT);
   pinMode(PhaseaUpperPin, OUTPUT);
-  pinMode(PhasebLowerPin, OUTPUT);
+  pinMode(PhaseaLowerPin, OUTPUT);
   pinMode(PhasebUpperPin, OUTPUT);
-  pinMode(PhasecLowerPin, OUTPUT);
-  pinMode(PhasecUpperPin, OUTPUT);  
+  pinMode(PhasebLowerPin, OUTPUT);
+  pinMode(PhasecUpperPin, OUTPUT);
+  pinMode(PhasecLowerPin, OUTPUT);  
   
   pinMode(HallaPin, INPUT);
   pinMode(HallbPin, INPUT);
@@ -59,18 +51,17 @@ void setup()
   HALLB=digitalRead(HallbPin);
   HALLC=digitalRead(HallcPin);
 
-  //attachInterrupt(digitalPinToInterrupt(HallaPin), blinka, CHANGE);
-  //attachInterrupt(digitalPinToInterrupt(HallbPin), blinkb, CHANGE);
-  //attachInterrupt(digitalPinToInterrupt(HallcPin), blinkc, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(HallaPin), blinka, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(HallbPin), blinkb, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(HallcPin), blinkc, CHANGE);
 
   
-  digitalWrite(PhaseaLowerPin, LOW);
   digitalWrite(PhaseaUpperPin, LOW);
-  digitalWrite(PhasebLowerPin, LOW);
+  digitalWrite(PhaseaLowerPin, LOW);
   digitalWrite(PhasebUpperPin, LOW);
-  digitalWrite(PhasecLowerPin, LOW);
+  digitalWrite(PhasebLowerPin, LOW);
   digitalWrite(PhasecUpperPin, LOW);
-  delay(1);
+  digitalWrite(PhasecLowerPin, LOW);
 }
 
 void loop()
@@ -81,113 +72,19 @@ void loop()
   HALLC=digitalRead(HallcPin);
   oldstate=newstate;  
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
-  Serial.println(newstate);
-/*
-  if(HALLA==HIGH){PhaseaLower=LOW;PhaseaUpper=HIGH;}else{PhaseaLower=HIGH;PhaseaUpper=LOW;}
-  if(HALLB==HIGH){PhasebLower=LOW;PhasebUpper=HIGH;}else{PhasebLower=HIGH;PhasebUpper=LOW;}
-  if(HALLC==HIGH){PhasecLower=LOW;PhasecUpper=HIGH;}else{PhasecLower=HIGH;PhasecUpper=LOW;}
-*/  
-  
-  if(newstate==1){
-    PhaseaLower=LOW;
-    PhaseaUpper=HIGH;
-    PhasebLower=LOW;
-    PhasebUpper=LOW;
-    PhasecLower=HIGH;
-    PhasecUpper=LOW;
-    }
-    
-    if(newstate==2){
-    PhaseaLower=HIGH;
-    PhaseaUpper=LOW;
-    PhasebLower=LOW;
-    PhasebUpper=HIGH;
-    PhasecLower=LOW;
-    PhasecUpper=LOW;
-    }
 
-    if(newstate==3){
-    PhaseaLower=LOW;
-    PhaseaUpper=LOW;
-    PhasebLower=LOW;
-    PhasebUpper=HIGH;
-    PhasecLower=HIGH;
-    PhasecUpper=LOW;
-    }
-
-    if(newstate==4){
-    PhaseaLower=LOW;
-    PhaseaUpper=LOW;
-    PhasebLower=HIGH;
-    PhasebUpper=LOW;
-    PhasecLower=LOW;
-    PhasecUpper=HIGH;
-    }
-
-    if(newstate==5){
-    PhaseaLower=LOW;
-    PhaseaUpper=HIGH;
-    PhasebLower=HIGH;
-    PhasebUpper=LOW;
-    PhasecLower=LOW;
-    PhasecUpper=LOW;
-    }
-
-    if(newstate==6){
-    PhaseaLower=HIGH;
-    PhaseaUpper=LOW;
-    PhasebLower=LOW;
-    PhasebUpper=LOW;
-    PhasecLower=LOW;
-    PhasecUpper=HIGH;
-    }
-  
-  
-  /*
-  if (newstate!=oldstate)
-  {
-  digitalWrite(PhaseaLowerPin, LOW);
-  digitalWrite(PhaseaUpperPin, LOW);
-  digitalWrite(PhasebLowerPin, LOW);
-  digitalWrite(PhasebUpperPin, LOW);
-  digitalWrite(PhasecLowerPin, LOW);
-  digitalWrite(PhasecUpperPin, LOW);
-  delayMicroseconds(1);
-  }*/
-
- digitalWrite(2, PhaseaLower);
- digitalWrite(3, LOW);
- digitalWrite(4, PhasebLower);
- digitalWrite(5, LOW);
- digitalWrite(6, PhasecLower);
- digitalWrite(7, LOW);
-
- delayMicroseconds(0.5*(1000-dutyCycle));
-
- digitalWrite(2, PhaseaLower);
- digitalWrite(3, PhaseaUpper);
- digitalWrite(4, PhasebLower);
- digitalWrite(5, PhasebUpper);
- digitalWrite(6, PhasecLower);
- digitalWrite(7, PhasecUpper);
-
- delayMicroseconds(dutyCycle);
-
- digitalWrite(2, PhaseaLower);
- digitalWrite(3, LOW);
- digitalWrite(4, PhasebLower);
- digitalWrite(5, LOW);
- digitalWrite(6, PhasecLower);
- digitalWrite(7, LOW);
-
- delayMicroseconds(0.5*(1000-dutyCycle));
+  digitalWrite(PhaseaUpperPin, (newstate==1)||(newstate==5) );
+  digitalWrite(PhaseaLowerPin, (newstate==2)||(newstate==6) );
+  digitalWrite(PhasebUpperPin, (newstate==2)||(newstate==3) );
+  digitalWrite(PhasebLowerPin, (newstate==4)||(newstate==5) );
+  digitalWrite(PhasecUpperPin, (newstate==4)||(newstate==6) );
+  digitalWrite(PhasecLowerPin, (newstate==1)||(newstate==3) );
 
   
-/*  
   if(newstate!=oldstate)
   {
     oldtime=newtime;
-    newtime=millis();
+    newtime=micros();
     dt=newtime-oldtime;
     oldthetam=newthetam;
     newthetam=oldthetam+theta0m;
@@ -223,9 +120,11 @@ void loop()
     if(newthetae>(2.0*PI)){newthetae=newthetae-(2.0*PI);}
     if(newthetae<(2.0*PI)){newthetae=newthetae+(2.0*PI);}            
   }
-
-  Serial.println(newthetae*(180.0/PI));
-
+  Serial.print("Angle: ");
+  Serial.print(newthetae*(180.0/PI));
+  Serial.print("  Speed(rpm): ");
+  Serial.println(newspeedm*((60.0*1000000.0)/(2*PI)));
+/*  
   IA=analogRead(IaPin);
   IB=analogRead(IbPin);
   IC=analogRead(IcPin);
