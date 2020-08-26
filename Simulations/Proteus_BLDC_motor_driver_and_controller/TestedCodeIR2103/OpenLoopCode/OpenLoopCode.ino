@@ -50,11 +50,11 @@ double oldtime,newtime,dt;
 double theta0e=PI/3.0;
 double theta0m=theta0e/(Poles/2);
 */
-unsigned int dutyCycle=500;
+unsigned int dutyCycle=600;
 
 void setup()
 {
-  Serial.begin(1200);
+  //Serial.begin(1200);
   pinMode(PhaseaLowerPin, OUTPUT);
   pinMode(PhaseaUpperPin, OUTPUT);
   pinMode(PhasebLowerPin, OUTPUT);
@@ -88,11 +88,11 @@ void setup()
   checkMOSFETsStatus();
   if((Shutdowna==1)||(Shutdownb==1)||(Shutdownc==1))
   {
-    Serial.println("Shutdown");
+    //Serial.println("Shutdown");
   }
   else
   {
-    Serial.println("Okay");
+    //Serial.println("Okay");
   }
 
 
@@ -102,7 +102,7 @@ void loop()
 {
   if((Shutdowna==1)||(Shutdownb==1)||(Shutdownc==1))
   {
-    Serial.println("Shutdown");
+    //Serial.println("Shutdown");
   digitalWrite(PhaseaLowerPin, !LOW);
   digitalWrite(PhaseaUpperPin, LOW);
   digitalWrite(PhasebLowerPin, !LOW);
@@ -115,13 +115,13 @@ void loop()
 
 else
 {
-  Serial.println("MOSFETs Okay");
+  //Serial.println("MOSFETs Okay");
   HALLA=digitalRead(HallaPin);
   HALLB=digitalRead(HallbPin);
   HALLC=digitalRead(HallcPin);
   oldstate=newstate;  
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
-  Serial.println(newstate);
+  //Serial.println(newstate);
 
   
   if(newstate==1){
@@ -301,13 +301,28 @@ int checkMOSFETsStatus()
   //if(digitalRead(MOSFETSbStatusInputPin)){Shutdownb=1;}
   //if(digitalRead(MOSFETScStatusInputPin)){Shutdownc=1;}
 
-  digitalWrite(PhaseaLowerPin,!HIGH);delayMicroseconds(100);if(digitalRead(MOSFETSaStatusInputPin)){Shutdowna=1;Serial.println("A LOW Failure");}
-  digitalWrite(PhasebLowerPin,!HIGH);delayMicroseconds(100);if(digitalRead(MOSFETSbStatusInputPin)){Shutdownb=1;Serial.println("B LOW Failure");}
-  digitalWrite(PhasecLowerPin,!HIGH);delayMicroseconds(100);if(digitalRead(MOSFETScStatusInputPin)){Shutdownc=1;Serial.println("C LOW Failure");}
+  digitalWrite(PhaseaLowerPin,!HIGH);delayMicroseconds(100);
+  if(digitalRead(MOSFETSaStatusInputPin))
+  {
+    Shutdowna=1;
+  //Serial.println("A LOW Failure");
+  }
+  digitalWrite(PhasebLowerPin,!HIGH);delayMicroseconds(100);
+  if(digitalRead(MOSFETSbStatusInputPin))
+  {
+    Shutdownb=1;
+  //Serial.println("B LOW Failure");
+  }
+  digitalWrite(PhasecLowerPin,!HIGH);delayMicroseconds(100);
+  if(digitalRead(MOSFETScStatusInputPin))
+  {
+    Shutdownc=1;
+    //Serial.println("C LOW Failure");
+  }
 
-  if(Shutdowna==1){digitalWrite(MOSFETSaStatusOutputPin,LOW);}else{digitalWrite(MOSFETSaStatusOutputPin,HIGH);}
-  if(Shutdownb==1){digitalWrite(MOSFETSbStatusOutputPin,LOW);}else{digitalWrite(MOSFETSbStatusOutputPin,HIGH);}
-  if(Shutdownc==1){digitalWrite(MOSFETScStatusOutputPin,LOW);}else{digitalWrite(MOSFETScStatusOutputPin,HIGH);}
+  //if(Shutdowna==1){digitalWrite(MOSFETSaStatusOutputPin,LOW);}else{digitalWrite(MOSFETSaStatusOutputPin,HIGH);}
+  //if(Shutdownb==1){digitalWrite(MOSFETSbStatusOutputPin,LOW);}else{digitalWrite(MOSFETSbStatusOutputPin,HIGH);}
+  //if(Shutdownc==1){digitalWrite(MOSFETScStatusOutputPin,LOW);}else{digitalWrite(MOSFETScStatusOutputPin,HIGH);}
 
   digitalWrite(PhaseaLowerPin, !LOW);
   digitalWrite(PhaseaUpperPin, LOW);
@@ -317,9 +332,24 @@ int checkMOSFETsStatus()
   digitalWrite(PhasecUpperPin, LOW);
   delayMicroseconds(100);
 
-  digitalWrite(PhaseaUpperPin,HIGH);delayMicroseconds(100);if(!digitalRead(MOSFETSaStatusInputPin)){Shutdowna=1;Serial.println("A HIGH Failure");}
-  digitalWrite(PhasebUpperPin,HIGH);delayMicroseconds(100);if(!digitalRead(MOSFETSbStatusInputPin)){Shutdownb=1;Serial.println("B HIGH Failure");}
-  digitalWrite(PhasecUpperPin,HIGH);delayMicroseconds(100);if(!digitalRead(MOSFETScStatusInputPin)){Shutdownc=1;Serial.println("C HIGH Failure");}
+  digitalWrite(PhaseaUpperPin,HIGH);delayMicroseconds(100);
+  if(!digitalRead(MOSFETSaStatusInputPin))
+  {
+    Shutdowna=1;
+    //Serial.println("A HIGH Failure");
+  }
+  digitalWrite(PhasebUpperPin,HIGH);delayMicroseconds(100);
+  if(!digitalRead(MOSFETSbStatusInputPin))
+  {
+    Shutdownb=1;
+    //Serial.println("B HIGH Failure");
+  }
+  digitalWrite(PhasecUpperPin,HIGH);delayMicroseconds(100);
+  if(!digitalRead(MOSFETScStatusInputPin))
+  {
+    Shutdownc=1;
+    //Serial.println("C HIGH Failure");
+  }
 
   if(Shutdowna==1){digitalWrite(MOSFETSaStatusOutputPin,LOW);}else{digitalWrite(MOSFETSaStatusOutputPin,HIGH);}
   if(Shutdownb==1){digitalWrite(MOSFETSbStatusOutputPin,LOW);}else{digitalWrite(MOSFETSbStatusOutputPin,HIGH);}
