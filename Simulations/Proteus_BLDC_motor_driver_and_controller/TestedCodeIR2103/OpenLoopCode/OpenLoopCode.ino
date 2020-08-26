@@ -35,8 +35,7 @@ int MOSFETScStatusOutputPin=8;
 int Shutdowna=0;
 int Shutdownb=0;
 int Shutdownc=0;
-
-/*double oldthetam,newthetam,oldthetae,newthetae,dthetae;
+double oldthetam,newthetam,oldthetae,newthetae,dthetae;
 double oldspeedm,newspeedm,accelerationm,oldspeede,newspeede,acceleratione,Direction;
 int Poles=4;
 
@@ -49,8 +48,8 @@ double Valpha,Vbeta;
 double oldtime,newtime,dt;
 double theta0e=PI/3.0;
 double theta0m=theta0e/(Poles/2);
-*/
-unsigned int dutyCycle=600;
+
+unsigned int dutyCycle=500;
 
 void setup()
 {
@@ -113,8 +112,8 @@ void loop()
   checkMOSFETsStatus();
   }
 
-else
-{
+  else
+  {
   //Serial.println("MOSFETs Okay");
   HALLA=digitalRead(HallaPin);
   HALLB=digitalRead(HallbPin);
@@ -179,7 +178,7 @@ else
     }
   
   
-  if (newstate!=oldstate)
+  if(newstate!=oldstate)
   {
   digitalWrite(PhaseaLowerPin, !LOW);
   digitalWrite(PhaseaUpperPin, LOW);
@@ -190,6 +189,8 @@ else
   delayMicroseconds(1);
   checkMOSFETsStatus();
   }
+
+
 
  digitalWrite(PhaseaLowerPin, !PhaseaLower);
  digitalWrite(PhaseaUpperPin, LOW);
@@ -217,11 +218,10 @@ else
  digitalWrite(PhasecUpperPin, LOW);
 
  delayMicroseconds(0.5*(1000-dutyCycle));
-
   
-}
+ }
   
-/*  
+  
   if(newstate!=oldstate)
   {
     oldtime=newtime;
@@ -262,8 +262,8 @@ else
     if(newthetae<(2.0*PI)){newthetae=newthetae+(2.0*PI);}            
   }
 
-  Serial.println(newthetae*(180.0/PI));
-
+  //Serial.println(newspeedm);
+/*
   IA=analogRead(IaPin);
   IB=analogRead(IbPin);
   IC=analogRead(IcPin);
