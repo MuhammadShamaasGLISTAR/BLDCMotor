@@ -214,7 +214,7 @@ void loop()
   if(newstate!=oldstate)
   {
     oldtime=newtime;
-    newtime=millis();
+    newtime=micros();
     dt=newtime-oldtime;
     oldthetam=newthetam;
     newthetam=oldthetam+theta0m;
@@ -242,7 +242,7 @@ void loop()
   }
   else
   {
-    dt=millis()-newtime;
+    dt=micros()-newtime;
     newthetam=newthetam+newspeedm*dt;
     newthetae=newthetae+newspeede*dt;
     if(newthetam>(2.0*PI)){newthetam=newthetam-(2.0*PI);}
