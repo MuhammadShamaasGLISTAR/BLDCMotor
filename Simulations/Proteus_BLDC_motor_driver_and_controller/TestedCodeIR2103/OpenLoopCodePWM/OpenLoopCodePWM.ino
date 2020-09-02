@@ -13,7 +13,7 @@ MOSFETS a/b/c StatusOutputPins can only be connected on digital pins. They are u
 */
 
 int PhaseaLowerPin=26;
-int PhaseaUpperPin=44;
+int PhaseaUpperPin=12;
 int PhasebLowerPin=4;
 int PhasebUpperPin=5;
 int PhasecLowerPin=10;
@@ -75,6 +75,17 @@ void setup()
   pinMode(PhasebUpperPin, OUTPUT);
   pinMode(PhasecLowerPin, OUTPUT);
   pinMode(PhasecUpperPin, OUTPUT);  
+
+int myEraser = 7;            
+TCCR1B &= ~myEraser;
+TCCR2B &= ~myEraser;
+TCCR3B &= ~myEraser;
+TCCR4B &= ~myEraser; 
+int myPrescaler = 2;         
+TCCR1B |= myPrescaler;
+TCCR2B |= myPrescaler;
+TCCR3B |= myPrescaler;
+TCCR4B |= myPrescaler;
 
   pinMode(HallaPin, INPUT);
   pinMode(HallbPin, INPUT);
