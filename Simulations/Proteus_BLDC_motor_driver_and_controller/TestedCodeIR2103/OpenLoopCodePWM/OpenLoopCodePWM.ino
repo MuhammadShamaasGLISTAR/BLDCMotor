@@ -1,7 +1,7 @@
 /*
 Arduino Mega 2560
 Brushless DC Motor Controller using IR2103
-Phase a/b/c Upper Pins can only be connected on pins 2 - 13 or 44 - 46 for analogWrite(pin,dutyCycle) where 0<=dutyCycle<=255
+Phase a/b/c Upper Pins can only be connected on pins 2 - 13 or 44 - 46 for analogWrite(pin, dutyCycle) where 0<=dutyCycle<=255
 Phase a/b/c Lower Pins can only be connected on digital pins. The logic for these pins must be inverted for IR2103 to work properly.
 Hall a/b/c Pins can only be connected on digital pins. 
 The HALL a/b/c logic bits are combined as newstate=(HALLC<<2)|(HALLB<<1)|(HALLA) e.g. HALLC=1, HALLB=0, HALLA=1 => newstate=(1<<2)|(0<<1)|1=101 
@@ -76,17 +76,6 @@ void setup()
   pinMode(PhasecLowerPin, OUTPUT);
   pinMode(PhasecUpperPin, OUTPUT);  
 
-int myEraser = 7;            
-TCCR1B &= ~myEraser;
-TCCR2B &= ~myEraser;
-TCCR3B &= ~myEraser;
-TCCR4B &= ~myEraser; 
-int myPrescaler = 2;         
-TCCR1B |= myPrescaler;
-TCCR2B |= myPrescaler;
-TCCR3B |= myPrescaler;
-TCCR4B |= myPrescaler;
-
   pinMode(HallaPin, INPUT);
   pinMode(HallbPin, INPUT);
   pinMode(HallcPin, INPUT);
@@ -157,7 +146,7 @@ void loop()
   if(val==255){dutyCycle=0;}
   if(val<255){dutyCycle=255-val;Direction=-1;}
   //if(dutyCycle>220){dutyCycle=220;}
-  //Serial.println(val/4);
+  //Serial.println(val/2);
 
     PhaseaLower=LOW;
     PhaseaUpper=LOW;
@@ -167,21 +156,21 @@ void loop()
     PhasecUpper=LOW;
     
   if(Direction==1){
-  if(newstate==1){PhaseaUpper=HIGH;PhasecLower=HIGH;}
-  if(newstate==2){PhaseaLower=HIGH;PhasebUpper=HIGH;}
-  if(newstate==3){PhasebUpper=HIGH;PhasecLower=HIGH;}
-  if(newstate==4){PhasebLower=HIGH;PhasecUpper=HIGH;}
-  if(newstate==5){PhaseaUpper=HIGH;PhasebLower=HIGH;}
-  if(newstate==6){PhaseaLower=HIGH;PhasecUpper=HIGH;}
+  if(newstate==1){PhaseaUpper=HIGH; PhasecLower=HIGH;}
+  if(newstate==2){PhaseaLower=HIGH; PhasebUpper=HIGH;}
+  if(newstate==3){PhasebUpper=HIGH; PhasecLower=HIGH;}
+  if(newstate==4){PhasebLower=HIGH; PhasecUpper=HIGH;}
+  if(newstate==5){PhaseaUpper=HIGH; PhasebLower=HIGH;}
+  if(newstate==6){PhaseaLower=HIGH; PhasecUpper=HIGH;}
   }
 
   if(Direction==(-1)){
-  if(newstate==1){PhaseaLower=HIGH;PhasecUpper=HIGH;}
-  if(newstate==2){PhaseaUpper=HIGH;PhasebLower=HIGH;}
-  if(newstate==3){PhasebLower=HIGH;PhasecUpper=HIGH;}
-  if(newstate==4){PhasebUpper=HIGH;PhasecLower=HIGH;}
-  if(newstate==5){PhaseaLower=HIGH;PhasebUpper=HIGH;}
-  if(newstate==6){PhaseaUpper=HIGH;PhasecLower=HIGH;}
+  if(newstate==1){PhaseaLower=HIGH; PhasecUpper=HIGH;}
+  if(newstate==2){PhaseaUpper=HIGH; PhasebLower=HIGH;}
+  if(newstate==3){PhasebLower=HIGH; PhasecUpper=HIGH;}
+  if(newstate==4){PhasebUpper=HIGH; PhasecLower=HIGH;}
+  if(newstate==5){PhaseaLower=HIGH; PhasebUpper=HIGH;}
+  if(newstate==6){PhaseaUpper=HIGH; PhasecLower=HIGH;}
   }
 
   
