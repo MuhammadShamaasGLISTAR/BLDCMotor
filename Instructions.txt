@@ -1,4 +1,7 @@
 Downloading all the files
+1.Download zip folder from https://github.com/MuhammadShamaasGLISTAR/BLDCMotor
+
+Downloading all the files using git
 1.Download and install git software (https://git-scm.com/download).
 2.Make a new folder BLDCMotor.
 2.Open command prompt in the folder BLDCMotor.
