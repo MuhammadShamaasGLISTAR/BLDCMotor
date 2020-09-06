@@ -10,70 +10,69 @@ Updating all the files and folders
 2.run this command in the command prompt: git pull
 
 Files and Folders
-3KW Motor
-	|-Controller
-	|-Motor
-5KW Motor
-Papers
-	|-Datasheets
-		|-BLDC Motor
-		|-BLDC Motor Driver
-		|-Microcontroller
-		|-MOSFET
-		|-Operational Amplifier
-		|-Photocoupler
-	|-Research Papers
-		|-Arduino
-		|-BLDC Generator
-		|-BLDC Motor
-		|-Direct Torque Control
-		|-Electric Vehicles
-		|-Field Oriented Control
-		|-Genetic Algorithms
-		|-Inverter
-		|-Other Controllers
-		|-Regenerative Braking
-		|-Simulink
-		|-SVPWM
-Reports
-	|-BLDC_Motor.docx
-	|-BLDC_Motor.pdf
-	|-BLDC_Motor.xlsx
-Simulations
-	|-MATLAB_BLDC_motor_driver_and_controller
-		|-SystemComposer
-			|-BLDC_Motor_System_Diagram.slx
-		|-BLDC_Motor_system_diagram.slx
-		|-BLDC_openloop.slx
-		|-BLDC_DirectTorqueControl.slx
-		|-BLDC_FieldOrientedControl.slx
-		|-BLDC_PWM_Speed_and_Current_Control.slx
-		|-BLDC_Hysteresis_Speed_and_Torque_Control.slx
-		|-BLDC_SVPWM.slx		
-		|-BLDC_SVPWM_Speed_and_Torque_Control.slx
-		|-Arduino Codes
-	|-Proteus_BLDC_motor_driver_and_controller
-		|-OpenLoop1
-		|-OpenLoop2
-		|-TestedCode
-	|-Hall_Sensor
-		|-hall_output_display.slx
-		|-hallsensor.slx
-		|-Arduino Codes
-	|-Inverter
-		|-Inverter_Arduino
-		|-Inverter_MPLAB
-		|-Inverter_Proteus
-		|-Inverter_PSIM
-		|-Inverter_LTSpice
-	|-Rectifier
-	|-Samples
-		|-AdaptivePIDControllerforBLDC.slx
-		|-BLDC_openloop.slx
-		|-BLDC_speed_control.mdl
-		|-direct_torque_control.mdl
-		|-PMSM_speed.mdl
-		|-power_brushlessDCmotor.slx
-		|-power_pmmotor.slx
-Commands.txt
-Instrucions.txt
+|-3KW Motor
+|	|-Controller
+|	|-Motor
+|-5KW Motor
+|-Papers
+|	|-Datasheets
+|	|	|-BLDC Motor
+|	|	|-BLDC Motor Driver
+|	|	|-Microcontroller
+|	|	|-MOSFET
+|	|	|-Operational Amplifier
+|	|	|-Photocoupler
+|	|-Research Papers
+|	|	|-Arduino
+|	|	|-BLDC Generator
+|	|	|-BLDC Motor
+|	|	|-Direct Torque Control
+|	|	|-Electric Vehicles
+|	|	|-Field Oriented Control
+|	|	|-Genetic Algorithms
+|	|	|-Inverter
+|	|	|-Other Controllers
+|	|	|-Regenerative Braking
+|	|	|-Simulink
+|	|	|-SVPWM
+|-Reports
+|	|-BLDC_Motor.docx
+|	|-BLDC_Motor.pdf
+|	|-BLDC_Motor.xlsx
+|-Simulations
+|	|-MATLAB_BLDC_motor_driver_and_controller
+|	|	|-SystemComposer
+|	|	|	|-BLDC_Motor_System_Diagram.slx
+|	|	|-BLDC_Motor_system_diagram.slx
+|	|	|-BLDC_openloop.slx
+|	|	|-BLDC_DirectTorqueControl.slx
+|	|	|-BLDC_FieldOrientedControl.slx
+|	|	|-BLDC_PWM_Speed_and_Current_Control.slx
+|	|	|-BLDC_Hysteresis_Speed_and_Torque_Control.slx
+|	|	|-BLDC_SVPWM.slx		
+|	|	|-BLDC_SVPWM_Speed_and_Torque_Control.slx
+|	|	|-Arduino Codes
+|	|-Proteus_BLDC_motor_driver_and_controller
+|	|	|-OpenLoopSimulation
+|	|	|-HardwareTestIR2103
+|	|-Hall_Sensor
+|	|-Inverter
+|	|	|-Inverter_MPLAB
+|	|	|-Inverter_Proteus
+|	|	|	|-InverterBootstrapCapacitor
+|	|	|	|-InverterTransformerIsolation
+|	|	|-Inverter_PSIM
+|	|	|-Inverter_LTSpice
+|	|-Rectifier
+|	|-Samples
+|	|	|-AdaptivePIDControllerforBLDC.slx
+|	|	|-BLDC_openloop.slx
+|	|	|-BLDC_speed_control.mdl
+|	|	|-direct_torque_control.mdl
+|	|	|-PMSM_speed.mdl
+|	|	|-power_brushlessDCmotor.slx
+|	|	|-power_pmmotor.slx
+|	|-Shunt Current Monitor
+|	|	|-ShuntCurrentMonitor.pdsprj
+|-Commands.txt
+|-Instrucions.txt
