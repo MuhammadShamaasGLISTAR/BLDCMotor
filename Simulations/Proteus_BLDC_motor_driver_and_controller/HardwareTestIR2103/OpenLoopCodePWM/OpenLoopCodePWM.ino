@@ -140,14 +140,17 @@ void loop()
   newstate=(HALLC<<2)|(HALLB<<1)|(HALLA);
   //Serial.println(newstate);
 
-  val = analogRead(A0);//0-1023
+  /*val = analogRead(A0);//0-1023
   val=val/2;//0-511;
   if(val>255){dutyCycle=val-255;Direction=1;}
   if(val==255){dutyCycle=0;}
   if(val<255){dutyCycle=255-val;Direction=-1;}
+  */
   //if(dutyCycle>220){dutyCycle=220;}
   //Serial.println(val/2);
-
+  dutyCycle=200;
+  Direction=1;
+  
     PhaseaLower=LOW;
     PhaseaUpper=LOW;
     PhasebLower=LOW;
@@ -175,6 +178,7 @@ void loop()
 
   
   if(((newstate==6)&&(oldstate==4))||((newstate==4)&&(oldstate==6)))
+  //if(newstate!=oldstate)
   {
   checkMOSFETsStatus();
   }
