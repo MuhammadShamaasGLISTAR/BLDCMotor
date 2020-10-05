@@ -42,6 +42,14 @@ Files and Folders
 |	|-BLDC_Motor.docx
 |	|-BLDC_Motor.pdf
 |	|-BLDC_Motor.xlsx
+|-HardwareTests
+|	|-FirstHardwareTest60WMotor
+|	|	|-OpenLoopCode
+|	|	|-OpenLoopCodePWM
+|	|	|-Pictures
+|	|-SecondHardwareTest2KWMotor
+|	|	|-OpenLoopCodePWM
+|	|	|-Pictures
 |-Simulations
 |	|-MATLAB_BLDC_motor_driver_and_controller
 |	|	|-SystemComposer
